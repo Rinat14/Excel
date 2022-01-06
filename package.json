@@ -1,0 +1,51 @@
+{
+	"name": "excel",
+	"version": "1.0.0",
+	"description": "Pure JavaScript Excel Application",
+	"main": "webpack.config.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "cross-env NODE_ENV=development webpack-dev-server --open",
+		"build": "cross-env NODE_ENV=production webpack --mode production"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Rinat14/Excel.git"
+	},
+	"keywords": [
+		"js",
+		"javascript",
+		"excel"
+	],
+	"author": "Rinat Samandarov <rinatsamandarov14@gmail.com>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Rinat14/Excel/issues"
+	},
+	"homepage": "https://github.com/Rinat14/Excel#readme",
+	"private": true,
+	"browserslist": "> 0.25%, not dead",
+	"devDependencies": {
+		"@babel/core": "^7.16.7",
+		"@babel/preset-env": "^7.16.7",
+		"babel-eslint": "^10.1.0",
+		"babel-loader": "^8.2.3",
+		"clean-webpack-plugin": "^4.0.0",
+		"copy-webpack-plugin": "^10.2.0",
+		"cross-env": "^7.0.3",
+		"css-loader": "^6.5.1",
+		"eslint": "^7.32.0",
+		"eslint-config-google": "^0.14.0",
+		"eslint-loader": "^4.0.2",
+		"html-webpack-plugin": "^5.5.0",
+		"mini-css-extract-plugin": "^2.4.5",
+		"sass": "^1.45.2",
+		"sass-loader": "^12.4.0",
+		"webpack": "^5.65.0",
+		"webpack-cli": "^4.9.1",
+		"webpack-dev-server": "^4.7.2"
+	},
+	"dependencies": {
+		"@babel/polyfill": "^7.12.1"
+	}
+}
