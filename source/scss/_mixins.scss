@@ -1,0 +1,35 @@
+@mixin button($color:#188038, $bg-color: #e5f7ea) {
+	height: 30px;
+	min-width: 30px;
+	padding: 3px;
+	text-align: center;
+	position: relative;
+	display: inline-block;
+	color: $color-for-button-mixin;
+	border-radius: 2px;
+	transition: all 0.3s ease-in-out;
+
+	& > i {
+		font-size: 25px;
+	}
+
+	&:hover {
+		background-color: #eee;
+		cursor: pointer;
+	}
+
+	&:active, &.active {
+		color: $color;
+		background-color: $bg-color;
+	}
+
+	.button {
+		@include button();
+	}
+}
+
+@mixin clear-list() {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}

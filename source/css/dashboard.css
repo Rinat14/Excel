@@ -1,0 +1,155 @@
+@import "variables.css";
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	overflow-x: hidden;
+}
+
+.wrapper {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.db {
+	position: relative;
+}
+.db__header {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: var(--db-header-height);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #fff;
+	box-shadow: 0 2px 5px 2px #3c404326;
+	z-index: 1000;
+}
+.db__header h1 {
+	color: #8E9DA9;
+}
+.db__new {
+	margin-top: var(--db-header-height);
+	padding: 1.5rem;
+	background-color: #F1F3F4;
+}
+.db__supcrip {
+	font-size: 17px;
+	color: #8E9DA9;
+	margin-bottom: 25px;
+	margin-left: 10px;
+}
+.block {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.db__create {
+	width: 160px;
+	height: 160px;
+	background-color: #fff;
+	border-radius: 4px;
+	border: 2px solid #dadce0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s ease-in-out;
+}
+.db__create:hover,
+.db__create:hover + .db__text {
+	border-left-color: #FE8805;
+	border-top-color: #FE8805;
+	border-right-color: #3988D1;
+	border-bottom-color: #3988D1;
+	color: #8E9DA9;
+}
+.db__text {
+	margin-top: 10px;
+	margin-left: 2px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #aaa;
+}
+.db__table {
+	padding: 1.3rem 0;
+}
+.db__list-header {
+	display: flex;
+	justify-content: space-between;
+	color: #202124;
+	font-weight: 500;
+	font-size: 14px;
+	margin-bottom: 30px;
+	padding: 0 8px;
+}
+.db__list-header span:first-child {
+	flex-grow: 1;
+}
+.db__list-header span:nth-child(2) {
+	margin-right: 50px;
+}
+.db__list {
+	padding: 0 8px;
+}
+.db__record {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 17px 16px 17px 16px;
+	margin-left: 30px;
+}
+.db__record:hover {
+	background-color: #E6F4EA;
+	border-radius: 35px;
+	cursor: pointer;
+}
+.db__record::before {
+	content: '';
+	position: absolute;
+	left: -30px;
+	width: 22px;
+	height: 22px;
+	display: block;
+	background: url("../favicon.ico") center no-repeat;
+	background-size: cover;
+}
+.db__record::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	width: 540px;
+	height: 1px;
+	background-color: #E6F4EA;
+	margin: 0 auto;
+}
+.db__record:last-child:after {
+	display: none;
+}
+.db__record span:first-child {
+	color: #333;
+	font-size: 15px;
+	width: 645px;
+	height: 18px;
+	overflow: hidden;
+}
+.db__record span:nth-child(2) {
+	color: #5F6876;
+	font-size: 15px;
+	margin-right: 60px;
+}
+.db__record span:last-child {
+	color: #5F6876;
+	font-size: 15px;
+}
