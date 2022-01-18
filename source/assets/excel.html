@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet">
+	<link rel="stylesheet" href="../css/main.css">
+	<title>Excel</title>
+</head>
+
+<body>
+	<div id="app" class="container">
+		<div class="excel">
+			<div class="excel__header">
+				<input class="input" title="Rename" type="text" name="table-name" value="Untitled spreadsheet">
+				<div>
+					<div class="button">
+						<i title="Delete" class="material-icons">delete</i>
+					</div>
+					<div class="button">
+						<i title="Exit to app" class="material-icons">exit_to_app</i>
+					</div>
+				</div>
+			</div>
+			<div class="excel__toolbar">
+				<div class="button">
+					<i title="Format align left" class="material-icons">format_align_left</i>
+				</div>
+				<div class="button">
+					<i title="Format align center" class="material-icons">format_align_center</i>
+				</div>
+				<div class="button">
+					<i title="Format align right" class="material-icons">format_align_right</i>
+				</div>
+				<div class="button">
+					<i title="Format bold" class="material-icons">format_bold</i>
+				</div>
+				<div class="button">
+					<i title="Format italic" class="material-icons">format_italic</i>
+				</div>
+				<div class="button">
+					<i title="Format underlined" class="material-icons">format_underlined</i>
+				</div>
+			</div>
+			<div class="excel__formula">
+				<div class="info">fx</div>
+				<div class="input" contenteditable="true" spellcheck="false">Hello, I am Rinat. I'm a programmer!</div>
+			</div>
+			<div class="excel__table">
+				<div class="row">
+					<div class="row-info" style="border-right-width: 5px; border-bottom-width: 5px; border-color: #b9b9b9;"></div>
+					<div class="row-data">
+						<div class="column">A</div>
+						<div class="column">B</div>
+						<div class="column">C</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="row-info">1</div>
+					<div class="row-data">
+						<div class="cell selected" contenteditable="true">A1</div>
+						<div class="cell">B1</div>
+						<div class="cell">C1</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="row-info">2</div>
+					<div class="row-data">
+						<div class="cell">A2</div>
+						<div class="cell">B2</div>
+						<div class="cell">C2</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
