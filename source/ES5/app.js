@@ -180,9 +180,10 @@ var Excel = function () {
 		this.components = this.components.map(function (Component) {
 			var $el = document.createElement('div');
 			var component = new Component($el);
-			if (component.name) {
-				window['c' + component.name] = component;
-			}
+			// DEBUG
+			// if (component.name) {
+			// 	window['c' + component.name] = component;
+			// }
 			$el.classList.add(component.toStatic());
 			$el.innerHTML = component.toHTML();
 			$root.append($el);
