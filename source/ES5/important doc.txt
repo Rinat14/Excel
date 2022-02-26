@@ -1,0 +1,5 @@
+uz - Bu yerda kompilyatsya bugan JS kod bor.
+
+ru - Тут находится скомпилированный JS код.
+
+en - Here is the compiled JS code.
