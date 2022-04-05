@@ -1,6 +1,6 @@
 'use strict';
 
-var formulaEcxel = document.querySelector('.excel__formula');
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
@@ -13,6 +13,20 @@ function capitalize(string) {
 		return '';
 	}
 	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function addAndRemoveListener(arr, eventType, callback, boolTF) {
+	if (boolTF === true) {
+		for (var i = 0; i < arr.length; i++){
+			var elem = document.querySelector(`.excel__${arr[i]}`);
+			elem.addEventListener(eventType, callback);
+		}
+	} else {
+		for (var i = 0; i < arr.length; i++){
+			var elem = document.querySelector(`.excel__${arr[i]}`);
+			elem.removeEventListener(eventType, callback);
+		}
+	}
 }
 
 var Dom = function () {
@@ -36,17 +50,13 @@ var Dom = function () {
 	};
 
 	Dom.prototype.on = function on(eventType, callback) {
-		var a = document.querySelector('.excel__formula');
-		var b = document.querySelector('.excel__toolbar');
-		a.addEventListener(eventType, callback);
-		b.addEventListener(eventType, callback);
+		var arr = ['toolbar', 'formula', 'table'];
+		addAndRemoveListener(arr, eventType, callback, true);
 	};
 
 	Dom.prototype.off = function off(eventType, callback) {
-		var a = document.querySelector('.excel__formula');
-		var b = document.querySelector('.excel__toolbar');
-		a.removeEventListener(eventType, callback);
-		b.removeEventListener(eventType, callback);
+		var arr = ['toolbar', 'formula', 'table'];
+		addAndRemoveListener(arr, eventType, callback, false);
 	}
 
 	Dom.prototype.append = function append(node) {
@@ -60,6 +70,39 @@ var Dom = function () {
 		}
 		return this;
 	};
+
+	Dom.prototype.closest = function closest(selector) {
+		return $(this.$el.closest(selector));
+	};
+
+	Dom.prototype.getCoords = function getCoords() {
+		return this.$el.getBoundingClientRect();
+	};
+
+	Dom.prototype.findAll = function findAll(selector) {
+		return this.$el.querySelectorAll(selector);
+	};
+
+	Dom.prototype.css = function css(styles = {}) {
+		/*
+		* for (let key in styles) {
+		* 	if (styles.hasOwnProperty(key)) {
+		* 		console.log(key);
+		* 		console.log(styles[key]);
+		* 	}
+		* } 
+		*/
+		Object.keys(styles).forEach(key => {
+			this.$el.style[key] = styles[key];
+		});
+	};
+
+	_createClass(Dom, [{
+		key: 'data',
+		get: function get() {
+			return this.$el.dataset;
+		}
+	}]);
 
 	return Dom;
 }();
@@ -234,7 +277,7 @@ var Toolbar = function (_ExcelComponent2) {
 
 		return _possibleConstructorReturn(this, _ExcelComponent2.call(this, $root, {
 			name: 'Toolbar',
-			listeners: ['click']
+			listeners: []
 		}));
 	}
 
@@ -242,9 +285,9 @@ var Toolbar = function (_ExcelComponent2) {
 		return '\n\t\t\t<div class="button">\n\t\t\t\t<i title="Format align left" class="material-icons">format_align_left</i>\n\t\t\t</div>\n\t\t\t<div class="button">\n\t\t\t\t<i title="Format align center" class="material-icons">format_align_center</i>\n\t\t\t</div>\n\t\t\t<div class="button">\n\t\t\t\t<i title="Format align right" class="material-icons">format_align_right</i>\n\t\t\t</div>\n\t\t\t<div class="button">\n\t\t\t\t<i title="Format bold" class="material-icons">format_bold</i>\n\t\t\t</div>\n\t\t\t<div class="button">\n\t\t\t\t<i title="Format italic" class="material-icons">format_italic</i>\n\t\t\t</div>\n\t\t\t<div class="button">\n\t\t\t\t<i title="Format underlined" class="material-icons">format_underlined</i>\n\t\t\t</div>\n\t\t';
 	};
 
-	Toolbar.prototype.onClick = function onClick(event) {
-		console.log(event.target);
-	};
+	// Toolbar.prototype.onClick = function onClick(event) {
+	// 	console.log(event.target);
+	// };
 
 	return Toolbar;
 }(ExcelComponent);
@@ -261,7 +304,7 @@ var Formula = function (_ExcelComponent3) {
 
 		return _possibleConstructorReturn(this, _ExcelComponent3.call(this, $root, {
 			name: 'Formula',
-			listeners: ['input', 'click']
+			listeners: []
 		}));
 	}
 
@@ -269,12 +312,12 @@ var Formula = function (_ExcelComponent3) {
 		return '\n\t\t\t<div class="info">fx</div>\n\t\t\t<div class="input" contenteditable="true" spellcheck="false"></div>\n\t\t';
 	};
 
-	Fromula.prototype.onInput = function onInput(event) {
-		console.log('Formula onInput: ' + event.target.textContent.trim());
-	};
-	Fromula.prototype.onClick = function onClick() {
-		console.log('mk');
-	};
+	// Fromula.prototype.onInput = function onInput(event) {
+	// 	console.log('Formula onInput: ' + event.target.textContent.trim());
+	// };
+	// Fromula.prototype.onClick = function onClick() {
+	// 	console.log('mk');
+	// };
 
 	return Fromula;
 }(ExcelComponent);
@@ -284,23 +327,30 @@ var CODES = {
 	Z: 90
 }
 
-function createCell() {
+function createCell(_, col) {
 	return `
-		<div class="cell" contenteditable="true"></div>
+		<div class="cell" contenteditable="true" data-col="${col}"></div>
 	`
 }
 
-function createCol(col) {
+function createCol(col, index) {
 	return `
-	<div class="column">${col}</div>
+	<div class="column" data-type="resizable" data-col="${index}">
+		${col}
+		<div class="col-resize" data-resize="col"></div>
+	</div>
 	`
 }
 
 function createRow(index, content, info, row) {
+	var resize = index ? `<div class="row-resize" data-resize="row"></div>` : '';
 	return `
-	<div class="row${row ? row : ''}">
-	<div class="row-info${info ? info : ''}">${index ? index : ''}</div>
-	<div class="row-data">${content}</div>
+	<div class="row${row ? row : ''}" data-type="resizable">
+		<div class="row-info${info ? info : ''}">
+			${index ? index : ''}
+			${resize}
+		</div>
+		<div class="row-data">${content}</div>
 	</div>
 	`;
 }
@@ -342,13 +392,60 @@ function createTable(rowsCount = 40) {
 	return rows.join('');
 }
 
+function resizeHandler(event) {
+	var $resizer = $(event.target);
+			// var $parent = $resizer.$el.parentNode; // ! bad!
+			// var $parent = $resizer.$el.closest('.column'); // ! better but bad!
+			var $parent = $resizer.closest('[data-type="resizable"]');
+			var coords = $parent.getCoords();
+			var table = document.querySelector('.excel__table');
+			var cells = table.querySelectorAll(`[data-col="${$parent.data.col}"]`);
+			var type = $resizer.data.resize;
+			// var sideProp = type === 'col' ? 'bottom' : 'right';
+			var value;
+
+			// $resizer.css({ opacity: 1, [sideProp]: '-5000px' });
+			$resizer.css({ opacity: 1 });
+
+			document.onmousemove = ev => {
+				if (type === 'col') {
+					var delta = ev.pageX - coords.right;
+					value = coords.width + delta;
+					$resizer.css({ right: -delta + 'px' });
+				} else {
+					var delta = ev.pageY - coords.bottom;
+					value = coords.height + delta;
+					$resizer.css({ bottom: -delta + 'px' });
+				}
+			}
+
+			document.onmouseup = () => {
+				document.onmousemove = null;
+				document.onmouseup = null;
+				if (type === 'col') {
+					$parent.css({width: value + 'px'});
+					cells.forEach(el => el.style.width = value + "px");
+				} else {
+					$parent.css({height: value + 'px'});
+				}
+				$resizer.css({ opacity: 0, bottom: '-2px', right: '-3px'});
+			}
+}
+
+function shouldResize(event) {
+	return event.target.dataset.resize
+}
+
 var Table = function (_ExcelComponent4) {
 	_inherits(Table, _ExcelComponent4);
 
-	function Table() {
+	function Table($root) {
 		_classCallCheck(this, Table);
 
-		return _possibleConstructorReturn(this, _ExcelComponent4.apply(this, arguments));
+		return _possibleConstructorReturn(this, _ExcelComponent4.call(this, $root, {
+			name: 'Table',
+			listeners: ['mousedown']
+		}));
 	}
 
 	Table.prototype.toStatic = function toStatic() {
@@ -357,6 +454,13 @@ var Table = function (_ExcelComponent4) {
 
 	Table.prototype.toHTML = function toHTML() {
 		return createTable(40);
+	};
+
+	Table.prototype.onMousedown = function onMousedown(event) {
+		// console.log(event.target.getAttribute('data-resize'));
+		if (shouldResize(event)) {
+			resizeHandler(event);
+		}
 	};
 
 	return Table;
